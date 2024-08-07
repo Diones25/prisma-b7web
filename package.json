@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon",
     "start": "node dist/server.js",
-    "db": "npx prisma db push"
+    "db": "npx prisma db push",
+    "migrate:dev": "npx prisma migrate dev"
   },
   "author": "",
   "license": "ISC",
