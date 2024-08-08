@@ -9,6 +9,7 @@ router.get('/ping', defaultControler.ping)
 
 router.post('/user', userController.create)
 router.post('/userPost', userController.createUserAndPosts)
+router.get('/users', userController.getAllUsers)
 
 
 export default router;
