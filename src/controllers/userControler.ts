@@ -29,6 +29,41 @@ const create = async (req: Request, res: Response) => {
   }
 }
 
+const createUserAndPosts = async (req: Request, res: Response) => {
+  const { name, email, title, body } = req.body;
+
+  try {
+    const emailExists = await prisma.user.findUnique({
+      where: {
+        email: email
+      }
+    })
+
+    if (emailExists) {
+      return res.status(400).json({ error: "Email já existe" })
+    }
+
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        posts: {
+          create: {
+            title,
+            body
+          }
+        }
+      }
+    })
+
+    return res.status(201).json({ user });
+
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
+}
+
 export default {
-  create
+  create,
+  createUserAndPosts
 };
