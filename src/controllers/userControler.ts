@@ -82,8 +82,36 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 }
 
+const getUserByEmail = async (req: Request, res: Response) => {
+  const { email } = req.params;
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        status: true,
+        posts: true
+      }
+    });
+
+    if (user === null) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+    
+    return res.status(200).json({ user });
+
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
+}
+
 export default {
   create,
   createUserAndPosts,
-  getAllUsers
+  getAllUsers,
+  getUserByEmail
 };
