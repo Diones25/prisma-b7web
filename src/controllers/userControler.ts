@@ -67,6 +67,11 @@ const getAllUsers = async (req: Request, res: Response) => {
 
   try {
     const users = await prisma.user.findMany({
+      where: {
+        name: {
+          startsWith: 'Lu'
+        }
+      },
       select: {
         id: true,
         name: true,
