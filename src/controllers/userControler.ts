@@ -7,6 +7,7 @@ const create = async (req: Request, res: Response) => {
     name,
     email
   });
+  
   return res.status(201).json({ user });
 }
 
