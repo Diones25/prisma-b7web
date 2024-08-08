@@ -1,14 +1,32 @@
 import { Request, Response } from "express";
-import { createUser } from "../services/userService";
+import { prisma } from "../libs/prisma";
 
 const create = async (req: Request, res: Response) => {
   const { name, email } = req.body;
-  const user = await createUser({
-    name,
-    email
-  });
-  
-  return res.status(201).json({ user });
+
+  try {
+    const emailExists = await prisma.user.findUnique({
+      where: {
+        email: email
+      }
+    })
+
+    if (emailExists) {
+      return res.status(400).json({ error: "Email já existe" })
+    }
+
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email
+      }
+    })
+    
+    return res.status(201).json({ user });
+    
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
 }
 
 export default {
