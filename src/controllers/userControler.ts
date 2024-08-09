@@ -96,6 +96,34 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 }
 
+const getAllRelationsUsers = async (req: Request, res: Response) => {
+
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        posts: {
+          some: {
+            title: {
+              startsWith: 'Title'
+            }
+          }
+        }
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        status: true,
+        posts: true
+      }
+    });
+    return res.status(200).json({ users });
+
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
+}
+
 const getUserByEmail = async (req: Request, res: Response) => {
   const { email } = req.params;
   try {
@@ -127,5 +155,6 @@ export default {
   create,
   createUserAndPosts,
   getAllUsers,
-  getUserByEmail
+  getUserByEmail,
+  getAllRelationsUsers
 };
