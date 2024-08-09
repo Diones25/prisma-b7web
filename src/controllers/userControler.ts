@@ -133,6 +133,7 @@ const getAllCountUsers = async (req: Request, res: Response) => {
         name: true,
         email: true,
         status: true,
+        posts: true,
         _count: {
           select: {
             posts: true
