@@ -168,6 +168,23 @@ const getAllOrdenaUsers = async (req: Request, res: Response) => {
   }
 }
 
+const getAllPaginacaoUsers = async (req: Request, res: Response) => {
+  const { page } = req.query;
+  let perPage = 3;
+  let skip = (Number(page) - 1) * perPage;
+
+  try {
+    const users = await prisma.user.findMany({
+      skip: skip | 0,
+      take: perPage
+    });
+    return res.status(200).json({ users });
+
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
+}
+
 const getUserByEmail = async (req: Request, res: Response) => {
   const { email } = req.params;
   try {
@@ -202,5 +219,6 @@ export default {
   getUserByEmail,
   getAllRelationsUsers,
   getAllCountUsers,
-  getAllOrdenaUsers
+  getAllOrdenaUsers,
+  getAllPaginacaoUsers
 };
