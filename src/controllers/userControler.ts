@@ -212,6 +212,27 @@ const getUserByEmail = async (req: Request, res: Response) => {
   }
 }
 
+const updateUser = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { email } = req.body;
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: {
+        id
+      },
+      data: {
+        email
+      }
+    })
+
+    return res.status(200).json({ updatedUser });
+
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
+}
+
 export default {
   create,
   createUserAndPosts,
@@ -220,5 +241,6 @@ export default {
   getAllRelationsUsers,
   getAllCountUsers,
   getAllOrdenaUsers,
-  getAllPaginacaoUsers
+  getAllPaginacaoUsers,
+  updateUser
 };

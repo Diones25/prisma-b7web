@@ -15,6 +15,7 @@ router.get('/users/relations', userController.getAllRelationsUsers);
 router.get('/users/count', userController.getAllCountUsers);
 router.get('/users/ordena', userController.getAllOrdenaUsers);
 router.get('/users/paginacao', userController.getAllPaginacaoUsers);
+router.put('/user/:id', userController.updateUser);
 
 
 export default router;
