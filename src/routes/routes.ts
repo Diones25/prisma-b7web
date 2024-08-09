@@ -13,6 +13,7 @@ router.get('/users', userController.getAllUsers);
 router.get('/user/:email', userController.getUserByEmail);
 router.get('/users/relations', userController.getAllRelationsUsers);
 router.get('/users/count', userController.getAllCountUsers);
+router.get('/users/ordena', userController.getAllOrdenaUsers);
 
 
 export default router;

@@ -148,6 +148,26 @@ const getAllCountUsers = async (req: Request, res: Response) => {
   }
 }
 
+const getAllOrdenaUsers = async (req: Request, res: Response) => {
+
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: [
+        {
+          name: 'asc'
+        },
+        {
+          email: 'desc'
+        }
+      ]
+    });
+    return res.status(200).json({ users });
+
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
+}
+
 const getUserByEmail = async (req: Request, res: Response) => {
   const { email } = req.params;
   try {
@@ -181,5 +201,6 @@ export default {
   getAllUsers,
   getUserByEmail,
   getAllRelationsUsers,
-  getAllCountUsers
+  getAllCountUsers,
+  getAllOrdenaUsers
 };
