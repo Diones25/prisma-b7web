@@ -124,6 +124,29 @@ const getAllRelationsUsers = async (req: Request, res: Response) => {
   }
 }
 
+const getAllCountUsers = async (req: Request, res: Response) => {
+
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        status: true,
+        _count: {
+          select: {
+            posts: true
+          }
+        }
+      }
+    });
+    return res.status(200).json({ users });
+
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor" })
+  }
+}
+
 const getUserByEmail = async (req: Request, res: Response) => {
   const { email } = req.params;
   try {
@@ -156,5 +179,6 @@ export default {
   createUserAndPosts,
   getAllUsers,
   getUserByEmail,
-  getAllRelationsUsers
+  getAllRelationsUsers,
+  getAllCountUsers
 };

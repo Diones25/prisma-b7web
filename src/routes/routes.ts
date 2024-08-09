@@ -12,6 +12,7 @@ router.post('/userPost', userController.createUserAndPosts);
 router.get('/users', userController.getAllUsers);
 router.get('/user/:email', userController.getUserByEmail);
 router.get('/users/relations', userController.getAllRelationsUsers);
+router.get('/users/count', userController.getAllCountUsers);
 
 
 export default router;
