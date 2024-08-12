@@ -3,16 +3,16 @@ import { prisma } from "../libs/prisma";
 
 export const findUserByEmailAndPassword = async (email: string, password: string) => {
   //consulta BD
-  const user = await prisma.user.findUnique({
+  const userDB = await prisma.user.findUnique({
     where: {
       email: email
     }
   })
 
-  if (user?.email === email && user?.password === password) {
+  if (userDB?.email === email && userDB?.password === password) {
     const user: User = {
-      id: '2',
-      name: 'Fulano'
+      id: userDB.id,
+      name: userDB.name
     }
     return user;
   }
