@@ -26,6 +26,7 @@ model User {
   role      Role      @default(USER)
   name      String 
   email     String    @unique
+  password  String    @default("123")
   posts     Post[]
 
   @@map("users")
