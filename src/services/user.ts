@@ -13,3 +13,7 @@ export const findUserByEmailAndPassword = async (email: string, password: string
 
   return null;
 }
+
+export const createUserToken = (user: User) => {
+  return '1234nJNHkuashA&¨%&¨45vdjashdjh';
+}

@@ -2,6 +2,8 @@ import { Router } from 'express';
 import defaultControler from '../controllers/defaultControler';
 import userController from '../controllers/userControler';
 import { privateRequest } from '../middlewares/auth';
+import authController from '../controllers/authController';
+import { localStrategyAuth } from '../libs/passport-local';
 
 const router = Router();
 
@@ -17,6 +19,8 @@ router.get('/users/count', userController.getAllCountUsers);
 router.get('/users/ordena', userController.getAllOrdenaUsers);
 router.get('/users/paginacao', userController.getAllPaginacaoUsers);
 router.put('/user/:id', userController.updateUser);
+
+router.post('/login', localStrategyAuth, authController.login)
 
 
 export default router;
