@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prisma } from "../libs/prisma";
 
 const create = async (req: Request, res: Response) => {
-  const { name, email } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     const emailExists = await prisma.user.findUnique({
@@ -18,7 +18,8 @@ const create = async (req: Request, res: Response) => {
     const user = await prisma.user.create({
       data: {
         name,
-        email
+        email,
+        password
       }
     })
     
