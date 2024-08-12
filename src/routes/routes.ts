@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import defaultControler from '../controllers/defaultControler';
 import userController from '../controllers/userControler';
+import { privateRequest } from '../middlewares/auth';
 
 const router = Router();
 
@@ -8,7 +9,7 @@ router.get('/', defaultControler.home);
 router.get('/ping', defaultControler.ping);
 
 router.post('/user', userController.create);
-router.post('/userPost', userController.createUserAndPosts);
+router.post('/userPost', privateRequest, userController.createUserAndPosts);
 router.get('/users', userController.getAllUsers);
 router.get('/user/:email', userController.getUserByEmail);
 router.get('/users/relations', userController.getAllRelationsUsers);
