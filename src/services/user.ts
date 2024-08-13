@@ -1,5 +1,6 @@
 import { User } from "../types/User";
 import { prisma } from "../libs/prisma";
+import jwt from 'jsonwebtoken';
 
 export const findUserByEmailAndPassword = async (email: string, password: string) => {
   //consulta BD
@@ -36,4 +37,13 @@ export const findUserByToken = async (token: string) => {
   }
 
   return null;
+}
+
+export const createUserJWT = (user: User) => {
+  const payload = {
+    id: user.id
+  }
+  return jwt.sign(payload, process.env.JWT_KEY as string, {
+    expiresIn: '1 minute'
+  });
 }
