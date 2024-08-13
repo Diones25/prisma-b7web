@@ -6,6 +6,7 @@ import router from './routes/routes';
 import passport from 'passport';
 import { locaStrategy } from './libs/passport-local';
 import { bearerStrategy } from './libs/passport-bearer';
+import { jwtStrategy } from './libs/passport-jwt';
 
 const server = express();
 
@@ -16,6 +17,7 @@ server.use(express.static(path.join(__dirname, '../public')));
 
 passport.use(locaStrategy);
 passport.use(bearerStrategy);
+passport.use(jwtStrategy);
 server.use(passport.initialize());
 
 server.use(router);

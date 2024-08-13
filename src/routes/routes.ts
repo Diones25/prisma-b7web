@@ -5,6 +5,7 @@ import { privateRequest } from '../middlewares/auth';
 import authController from '../controllers/authController';
 import { localStrategyAuth } from '../libs/passport-local';
 import { bearerStrategyAuth } from '../libs/passport-bearer';
+import { jwtStrategyAuth } from '../libs/passport-jwt';
 
 const router = Router();
 
@@ -23,7 +24,7 @@ router.put('/user/:id', userController.updateUser);
 
 router.post('/login', localStrategyAuth, authController.login)
 router.get('/private', bearerStrategyAuth, authController.privateRoute)
-router.get('/privatejwt', authController.privateRouteJwt)
+router.get('/privatejwt', jwtStrategyAuth, authController.privateRouteJwt)
 
 
 export default router;

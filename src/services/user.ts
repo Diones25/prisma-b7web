@@ -43,7 +43,24 @@ export const createUserJWT = (user: User) => {
   const payload = {
     id: user.id
   }
-  return jwt.sign(payload, process.env.JWT_KEY as string, {
-    expiresIn: '1 minute'
-  });
+  return jwt.sign(payload, process.env.JWT_KEY as string);
+}
+
+export const findUserById = async (id: number) => {
+  //consulta BD
+  const userDB = await prisma.user.findUnique({
+    where: {
+      id: id
+    }
+  })
+
+  if (userDB?.id === id) {
+    const user: User = {
+      id: userDB.id,
+      name: userDB.name
+    }
+    return user;
+  }
+
+  return null;
 }
