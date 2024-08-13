@@ -7,6 +7,11 @@ const login = async (req: Request, res: Response) => {
   })
 }
 
+const privateRoute = async (req: Request, res: Response) => {
+  return res.json({ msg: 'Acessou' })
+}
+
 export default {
-  login
+  login,
+  privateRoute
 }
