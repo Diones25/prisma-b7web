@@ -11,7 +11,12 @@ const privateRoute = async (req: Request, res: Response) => {
   return res.json({ msg: 'Acessou' })
 }
 
+const privateRouteJwt = async (req: Request, res: Response) => {
+  return res.json({ msg: 'Acessou JWT' })
+}
+
 export default {
   login,
-  privateRoute
+  privateRoute,
+  privateRouteJwt
 }

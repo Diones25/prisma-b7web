@@ -23,6 +23,7 @@ router.put('/user/:id', userController.updateUser);
 
 router.post('/login', localStrategyAuth, authController.login)
 router.get('/private', bearerStrategyAuth, authController.privateRoute)
+router.get('/privatejwt', authController.privateRouteJwt)
 
 
 export default router;
