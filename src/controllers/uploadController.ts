@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import sharp from "sharp";
 
 /*
 {
@@ -13,14 +14,19 @@ import { Request, Response } from "express";
 }
 */
 
-const uploadFile = (req: Request, res: Response) => {
+const uploadFile = async (req: Request, res: Response) => {
   //const { photo } = req.file;
   
   if (!req.file || (req.file && !req.file.mimetype.includes('image'))) {
     return res.status(400).json({ error: 'Nenhuma imagem recebida' })
   }
 
-  return res.status(201).json({ file: req.file.filename });
+  await sharp(req.file.path).resize(300, 300, {
+    fit: 'cover'
+  })
+    .toFile('public/avatars/' + req.file.fieldname + '.jpg');
+
+  return res.status(201).json({ photo: 'http://localhost:3000/avatars/'+req.file.filename+'.jpg' });
 }
 
 export default {
